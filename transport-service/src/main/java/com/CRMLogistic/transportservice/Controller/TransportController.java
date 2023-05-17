@@ -39,7 +39,7 @@ public class TransportController {
     public void editTransport(@RequestBody Transport modifiedTransport){
         Transport transport = getTransport(modifiedTransport.getId());
         transportService.edit(modifiedTransport);
-        transportProducer.sendMessage(localDateTime + "Object " +transport.toString()+ " was changed to " +
+        transportProducer.sendMessage(localDateTime + " Object " +transport.toString()+ " was changed to " +
                 modifiedTransport.toString());
     }
 
