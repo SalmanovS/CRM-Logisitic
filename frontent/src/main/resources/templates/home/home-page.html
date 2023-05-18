@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
-    <link href="/static/css/left-navigation-menu.css" th:href="@{/css/left-navigation-menu.css}" rel="stylesheet" />
+    <link href="/static/css/left-navigation-and-top-blocks.css" th:href="@{/css/left-navigation-and-top-blocks.css}"
+          rel="stylesheet" />
 </head>
 <body>
 <div th:insert="~{fragments/homePage :: left_navigation_menu}"></div>
-
+<div th:insert="~{fragments/homePage :: top-three-blocks}"></div>
+<div align="center"><img th:src="@{/img/logo.png}"/></div>
+<hr>
 </body>
 </html>

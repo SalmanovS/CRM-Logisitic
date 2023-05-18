@@ -7,4 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/transport")
 public class TransportController {
 
+    @RequestMapping("/")
+    public String home(){
+        return "transport/index";
+    }
+
 }

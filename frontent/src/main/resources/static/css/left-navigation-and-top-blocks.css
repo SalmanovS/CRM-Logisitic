@@ -27,3 +27,18 @@ li a:hover:not(.active) {
     background-color: #e88a44;
     color: #dcdcdc;
 }
+.top-three-blocks {
+  height: 100px;
+  width: 300px; /* Можно задать любую другую ширину блока */
+  background: white;
+  margin: 10px;
+  font-size: 18px;
+  font-family: Times New Roman;
+  color: #aaa8a8;
+}
+
+.top-three-blocks-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
