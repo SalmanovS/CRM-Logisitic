@@ -17,28 +17,25 @@
     <table class="main-table">
     <tr>
         <thead>
-        <th>Surname</th>
-        <th>Name</th>
-        <th>Family</th>
-        <th>Email</th>
-        <th>lokfrfr</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Number</th>
+        <th>Body type</th>
+        <th>Carrying capacity</th>
+        <th>Status</th>
+        <th>Info</th>
         </thead>
     </tr>
         <tbody>
-        <tr>
-            <td>Bush</td>
-            <td>George</td>
-            <td>sferfre</td>
-            <td>erferf</td>
-            <td>erfer</td>
-        </tr>
-        <tr>
-            <td>Lenin</td>
-            <td>Vladimir</td>
-            <td>wewew</td>
-            <td>erfef</td>
-            <td>vdvf</td>
-
+        <tr th:each="car, item: ${allTransport}">
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.number}"></td>
+            <td th:text="${car.bodyType}"></td>
+            <td th:text="${car.CarryingCapacity}"></td>
+            <td th:text="${car.status}"></td>
+            <td><form th:action="@{'/transport/get/{id}'(id=${car.id})}"th:method="get">
+                <button type="submit" >Detail</button></form></td>
         </tr>
         </tbody>
     </table>

@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+  <link href="/static/css/left-navigation-and-top-blocks.css" th:href="@{/css/left-navigation-and-top-blocks.css}"
+        rel="stylesheet" />
+  <link href="/static/css/transport/transport.css" th:href="@{/css/transport/transport.css}"
+        rel="stylesheet" />
+</head>
+<body>
+<div th:insert="~{fragments/homePage :: left_navigation_menu}"></div>
+<div th:insert="~{fragments/homePage :: top-three-blocks}"></div>
+<div class="top-menu" th:insert="~{fragments/transport :: menu}"></div>
+<div class="table-block1">
+  <table class="main-table">
+    <tr>
+      <thead>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Number</th>
+      <th>Body type</th>
+      <th>Carrying capacity</th>
+      <th>Status</th>
+      </thead>
+    </tr>
+    <tbody>
+    <tr>
+    <form   th:action="@{'/transport/update/{id}'(id=${transport.id})}" th:object="${transport}" th:method="put">
+      <input type="hidden" name="id" th:field="*{id}" />
+      <td><input type="text" name="brand" th:field="*{brand}" /></td>
+      <td><input type="text" name="model" th:field="*{model}" /></td>
+      <td><input type="text" name="number" th:field="*{number}" /></td>
+
+      <td><select th:field="*{bodyType}" name="bodyType">
+        <option value="Van">Van</option>
+        <option value="Semitrailer">Semitrailer</option>
+        <option value="Reefer">Reefer</option>
+      </select></td>
+      <td><input type="number" lang="en" name="carryingCapacity" th:field="*{carryingCapacity}" /></td>
+      <td><input type="text"  name="status" th:field="*{status}" readonly/></td>
+      <td><button  type="submit" >Save</button></form></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>
