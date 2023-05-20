@@ -49,4 +49,9 @@ public class TransportImpl implements TransportService {
         transport.setStatus(newStatus);
         transportRepository.save(transport);
     }
+
+    @Override
+    public Transport searchForNumber(String number) {
+        return transportRepository.findByNumber(number);
+    }
 }

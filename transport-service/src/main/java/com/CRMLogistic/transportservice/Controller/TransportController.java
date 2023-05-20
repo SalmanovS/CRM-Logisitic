@@ -60,4 +60,14 @@ public class TransportController {
         transportProducer.sendMessage(localDateTime + " The object  " + transport.toString() +
                 " has changed its status to " + newStatus);
     }
+
+    @GetMapping("/transports/search/{number}")
+    public Transport searchTransportForNumber(@PathVariable String number){
+        Transport transport  = transportService.searchForNumber(number);
+        transportProducer.sendMessage(localDateTime+ " A search was performed for the query "+number
+                + " result: "+ transport );
+        return transport;
+
+
+    }
 }

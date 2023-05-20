@@ -66,6 +66,20 @@ public class TransportController {
 
         return "redirect:/transport/";
     }
+    @RequestMapping("search")
+    public String search(){
+
+        return "transport/search";
+    }
+
+    @RequestMapping("searchNumber")
+    @ResponseBody
+    public Transport searchForNumber(@RequestParam("search")String number){
+
+        Transport transport = WebClient.create().get().uri("http://localhost:8083/api/transports/search/{number}",
+                number).retrieve().bodyToMono(Transport.class).block();
+        return transport;
+    }
 
 
 

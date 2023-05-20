@@ -2,6 +2,7 @@ package com.CRMLogistic.transportservice.Service;
 
 import com.CRMLogistic.transportservice.Model.Transport;
 
+import javax.swing.tree.TreeNode;
 import java.util.List;
 
 public interface TransportService {
@@ -19,4 +20,6 @@ public interface TransportService {
     List<Transport> showTransportWithStatus(String status);
 
     void changeStatus(int id, String newStatus);
+
+    Transport searchForNumber(String number);
 }

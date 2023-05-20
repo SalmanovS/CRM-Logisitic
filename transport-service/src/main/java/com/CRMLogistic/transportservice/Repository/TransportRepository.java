@@ -11,4 +11,6 @@ public interface TransportRepository extends JpaRepository<Transport, Integer> {
 
     List<Transport> findByStatus(String status);
 
+    Transport findByNumber(String number);
+
 }

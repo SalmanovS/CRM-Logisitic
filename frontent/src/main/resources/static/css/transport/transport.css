@@ -39,12 +39,15 @@
 }
 .main-table {
 	width: 100%;
-	border: none;
 	margin-bottom: 20px;
 	border-collapse: collapse;
 }
 
+.scroll-div-main-table{
+    height: 400px;
+    overflow: scroll;
 
+}
 .main-table  th {
 	padding: 10px;
 	font-size: 16px;
@@ -99,5 +102,31 @@
     height: 40px;
     font-size: 16px;
     font-family: Times New Roman ;
+
+}
+
+
+.numberSearchInput{
+   margin-left: 400px;
+   border: none;
+   border-bottom: 1px solid blue;
+   width: 200px;
+   height: 40px;
+   font-size: 16px;
+   font-family: Times New Roman ;
+
+}
+.searchBtn {
+    border: 1px solid #E9E8EB;
+    background-color: white;
+    font-size: 18px;
+    width: 70px;
+    height: 30px;
+    margin-left: 10px;
+    font-family: Times New Roman ;
+
+}
+.searchBtn:hover {
+    background-color: #E9E8EB;
 
 }
