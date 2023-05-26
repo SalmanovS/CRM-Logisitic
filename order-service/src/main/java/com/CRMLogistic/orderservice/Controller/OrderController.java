@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequestMapping("api/")
 public class OrderController {
 
-    private final String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+     DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -26,7 +26,7 @@ public class OrderController {
     @PostMapping("orders")
     public void createNewOrder(@PathVariable Order order){
         orderService.create(order);
-        orderProducer.sendMessage(localDateTime + " CREATED NEW ORDER "+ order);
+        orderProducer.sendMessage(LocalDateTime.now().format(pattern) + " CREATED NEW ORDER "+ order);
 
     }
     @GetMapping("orders/{id}")
@@ -36,13 +36,13 @@ public class OrderController {
     @PutMapping("orders")
     public void editOrder(@PathVariable Order order){
         orderService.edit(order);
-        orderProducer.sendMessage(localDateTime + " THE ORDER NUMBER "+ order.getOrderNumber()+" HAS BEEN EDITED: "
-                + order);
+        orderProducer.sendMessage(LocalDateTime.now().format(pattern) + " THE ORDER NUMBER "+
+                order.getOrderNumber()+" HAS BEEN EDITED: " + order);
     }
     @DeleteMapping("orders/{id}")
     public void deleteOrder(@PathVariable int id){
         Order order = orderService.getOrder(id);
-        orderProducer.sendMessage(localDateTime + " ORDER NUMBER " +order.getOrderNumber() +
+        orderProducer.sendMessage(LocalDateTime.now().format(pattern) + " ORDER NUMBER " +order.getOrderNumber() +
                 " HAS BEEN DELETED:" +order);
         orderService.delete(id);
     }
@@ -61,5 +61,31 @@ public class OrderController {
         RestTemplate restTemplate = new RestTemplate();
         Response response = restTemplate.getForObject(url, Response.class);
         return response.getRoutes()[0].getLegs()[0].getDistance().getValue();
+    }
+    @PutMapping("orders/status/change/{id}&{newStatus}")
+    public void changeOrderStatus(@PathVariable int id, @PathVariable String newStatus) {
+        Order order = orderService.getOrder(id);
+        orderService.changeStatus(id,newStatus);
+        orderProducer.sendMessage(LocalDateTime.now().format(pattern) +" ORDER STATUS "
+                + order.getOrderNumber()+ " CHANGED TO: " + newStatus);
+    }
+
+    @GetMapping("orders/select/today")
+    public List<Order> showTodayOrders(){
+        return orderService.todayOrders();
+    }
+
+    @GetMapping("orders/select/tomorrow")
+    public List<Order> showTomorrowOrders(){
+        return orderService.tomorrowOrders();
+    }
+    @GetMapping("orders/select/otherDays")
+    public List<Order> showOtherDaysOrders(){
+        return orderService.otherDaysOrders();
+    }
+
+    @GetMapping("orders/status/{statusOf}")
+    public List<Order> showOrderStatusOf(@PathVariable String statusOf){
+        return orderService.orderStatusOf(statusOf);
     }
 }

@@ -48,4 +48,31 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> all() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public void changeStatus(int id,String newStatus) {
+        Order order = orderRepository.getReferenceById(id);
+        order.setStatus(newStatus);
+        orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> todayOrders() {
+        return orderRepository.selectTodayOrders();
+    }
+
+    @Override
+    public List<Order> tomorrowOrders() {
+        return orderRepository.selectTomorrowOrders();
+    }
+
+    @Override
+    public List<Order> otherDaysOrders() {
+        return orderRepository.selectOtherDays();
+    }
+
+    @Override
+    public List<Order> orderStatusOf(String status) {
+        return orderRepository.findByStatus(status);
+    }
 }

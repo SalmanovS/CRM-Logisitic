@@ -14,4 +14,14 @@ public interface OrderService {
     void edit(Order order);
 
     List<Order> all();
+
+    void changeStatus(int id,String newStatus);
+
+    List<Order> todayOrders();
+
+    List<Order> tomorrowOrders();
+
+    List<Order> otherDaysOrders();
+
+    List<Order> orderStatusOf(String status);
 }

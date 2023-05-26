@@ -1,0 +1,120 @@
+.top-menu {
+    margin-left: 250px;
+    border-top: 2px solid #1B7FF4;
+    border-bottom: 2px solid #1B7FF4;
+    display: flex;
+    background-color: #E9E8EB;
+
+
+}
+.menu {
+    height: 40px;
+    width: 180px;
+    background-color: #E9E8EB;
+
+
+}
+.menu-text {
+    margin-top: 10px;
+
+}
+
+.menu a {
+
+    text-decoration: none;
+    font-family: Times New Roman ;
+    color: black;
+    text-align: center;
+}
+
+.menu:hover{
+    background-color: #b5b3ba;
+}
+
+/*  -------------------------------------------------------------*/
+
+.main {
+    padding: 5px;
+    margin-top: 20px;
+    margin-left: 260px;
+
+
+
+
+}
+.button-div {
+  display: flex;
+
+}
+.block {
+    width: 150px;
+    height: 25px;
+    text-align: center;
+}
+
+.block button {
+    border: none;
+    border-bottom: 1px solid #1B7FF4;
+    background: none;
+    font-size: 18px;
+    font-family: Times New Roman ;
+}
+
+.table-div {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: block;
+    overflow: scroll;
+    height: 250px;
+
+
+}
+
+.main-table {
+	width: 100%;
+	margin-bottom: 20px;
+	border-collapse: collapse;
+}
+
+.scroll-div-main-table{
+    height: 400px;
+    overflow: scroll;
+
+}
+.main-table  th {
+	padding: 10px;
+	font-size: 16px;
+	text-align: center;
+	border-bottom: 2px solid #d4d4d4;
+	border-top: 2px solid #d4d4d4;
+	border-left: 0px;
+
+}
+.main-table  td {
+	padding: 10px;
+	text-align: center;
+	font-size: 16px;
+	border-bottom: 1px solid #d4d4d4;
+	border-left: 0px;
+}
+
+#tomorrow-table {
+    display: none;
+}
+#otherDays-table {
+    display: none;
+}
+#today-table {
+    display: block;
+}
+
+#today-btn {
+    border-bottom: 1px solid red;
+}
+
+hr {
+    margin-top: 20px;
+    border: 2px solid #e88a44;
+
+
+}

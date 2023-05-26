@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Orders</title>
+  <link href="/static/css/left-navigation-and-top-blocks.css" th:href="@{/css/left-navigation-and-top-blocks.css}"
+        rel="stylesheet" />
+  <link href="/static/css/order/order.css" th:href="@{/css/order/order.css}"
+        rel="stylesheet" />
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div th:insert="~{fragments/homePage :: left_navigation_menu}"></div>
+<div th:insert="~{fragments/homePage :: top-three-blocks}"></div>
+<div class="top-menu" th:insert="~{fragments/order :: order-menu}"></div>
+<div class="main">
+  <div class="button-div">
+<div class="block"><button id="today-btn" onclick="todayBtn()">Today orders</button></div>
+  <div class="block"><button id="tomorrow-btn" onclick="tomorrowBtn()">Tomorrow orders</button></div>
+  <div class="block"><button id="other-btn" onclick="otherDaysBtn()">Other days</button></div>
+  </div>
+  <div id="today-table" class="table-div">
+    <table class="main-table">
+      <tr>
+        <thead>
+        <th>№</th>
+        <th>Order number</th>
+        <th>Cargo name</th>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Status</th>
+        <th></th>
+        </thead>
+      </tr>
+      <tbody>
+        <tr th:each="order, state: ${todayOrders}">
+          <td th:text="${state.index +1}"></td>
+          <td th:text="${order.orderNumber}"></td>
+          <td th:text="${order.cargoName}"></td>
+          <td th:text="${order.departureAddress}"></td>
+          <td th:text="${order.destinationAddress}"></td>
+          <td th:text="${order.status}"></td>
+          <td><button th:onclick="'changeStatus('+${order.id}+', \''+In+Progress+'\')'">Transfer to work</button></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="tomorrow-table" class="table-div">
+    <table class="main-table">
+      <tr>
+        <thead>
+        <th>№</th>
+        <th>Order number</th>
+        <th>Cargo name</th>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Status</th>
+        <th></th>
+        </thead>
+      </tr>
+      <tbody>
+      <tr th:each="order, state: ${tomorrowOrders}">
+        <td th:text="${state.index +1}"></td>
+        <td th:text="${order.orderNumber}"></td>
+        <td th:text="${order.cargoName}"></td>
+        <td th:text="${order.departureAddress}"></td>
+        <td th:text="${order.destinationAddress}"></td>
+        <td th:text="${order.status}"></td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="otherDays-table" class="table-div">
+    <table class="main-table">
+      <tr>
+        <thead>
+        <th>№</th>
+        <th>Order number</th>
+        <th>Cargo name</th>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Status</th>
+        <th></th>
+        </thead>
+      </tr>
+      <tbody>
+      <tr th:each="order, state: ${otherDaysOrders}">
+        <td th:text="${state.index +1}"></td>
+        <td th:text="${order.orderNumber}"></td>
+        <td th:text="${order.cargoName}"></td>
+        <td th:text="${order.departureAddress}"></td>
+        <td th:text="${order.destinationAddress}"></td>
+        <td th:text="${order.status}"></td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!----------------- second table ----------------->
+  <hr>
+  <div class="button-div">
+    <div class="block"><button  onclick="todayBtn()">Orders in progress</button></div>
+    <div class="block"><button  onclick="tomorrowBtn()">Scheduled orders</button></div>
+    <div class="block"><button onclick="otherDaysBtn()">Completed orders</button></div>
+  </div>
+  <div class="table-div">
+    <table class="main-table">
+      <tr>
+        <thead>
+        <th>№</th>
+        <th>Order number</th>
+        <th>Cargo name</th>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Status</th>
+        <th></th>
+        </thead>
+      </tr>
+      <tbody>
+      <tr th:each="order, state: ${orderStatusInProgress}">
+        <td th:text="${state.index +1}"></td>
+        <td th:text="${order.orderNumber}"></td>
+        <td th:text="${order.cargoName}"></td>
+        <td th:text="${order.departureAddress}"></td>
+        <td th:text="${order.destinationAddress}"></td>
+        <td th:text="${order.status}"></td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{/js/order/main.js}"></script>
+</body>
+</html>

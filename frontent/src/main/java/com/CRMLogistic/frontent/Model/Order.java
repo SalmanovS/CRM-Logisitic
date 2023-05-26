@@ -1,36 +1,31 @@
-package com.CRMLogistic.orderservice.Model;
-
-import jakarta.persistence.*;
+package com.CRMLogistic.frontent.Model;
 
 import java.time.LocalDate;
 
-@Entity(name = "orders")
 public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private int id;
-    @Column(name = "order_number")
+
     private String orderNumber;
-    @Column(name = "cargo_name")
+
     private String cargoName;
-    @Column(name = "cargo_weight")
+
     private int weight;
-    @Column(name = "departure_address")
+
     private String departureAddress;
-    @Column(name = "destination_address")
+
     private String destinationAddress;
-    @Column(name = "route_length")
+
     private int routeLength;
-    @Column(name = "departure_date")
+
     private LocalDate departureDate;
-    @Column(name = "destination_date")
+
     private LocalDate destinationDate;
-    @Column(name = "order_price")
+
     private double orderPrice;
-    @Column(name = "order_status")
+
     private String status;
-    @Column(name = "transport_id")
+
     private int transportId;
 
     public Order() {
