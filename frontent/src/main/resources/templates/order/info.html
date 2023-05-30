@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Info</title>
+  <link href="/static/css/left-navigation-and-top-blocks.css" th:href="@{/css/left-navigation-and-top-blocks.css}"
+        rel="stylesheet" />
+  <link href="/static/css/order/order.css" th:href="@{/css/order/order.css}"
+        rel="stylesheet" />
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div th:insert="~{fragments/homePage :: left_navigation_menu}"></div>
+<div th:insert="~{fragments/homePage :: top-three-blocks}"></div>
+<div class="top-menu" th:insert="~{fragments/order :: order-menu}"></div>
+<div class="main">
+
+  <div class="info-table-div">
+    <table class="info-table">
+      <tr>
+        <th >Order number</th>
+        <th>Status</th>
+        <th>Order price</th>
+        </tr>
+        <tr>
+        <td  th:text="${order.orderNumber}"></td>
+          <td><i th:text="${order.status}"></i></td>
+          <td th:text="${order.orderPrice}"></td>
+        </tr>
+        <tr>
+        <th colspan="1">Cargo name</th>
+          <th colspan="2">Weight</th>
+          </tr>
+      <tr>
+        <td colspan="1" th:text="${order.cargoName}"></td>
+        <td colspan="2" th:text="${order.weight}"></td>
+      </tr>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Route length</th>
+      </tr>
+      <tr>
+        <td th:text="${order.departureAddress}"></td>
+        <td th:text="${order.destinationAddress}"></td>
+        <td th:text="${order.routeLength}"></td>
+      </tr>
+      <tr>
+        <th>Departure date</th>
+        <th>Destination date</th>
+        <th>Transport</th>
+      </tr>
+      <tr>
+        <td th:text="${order.departureDate}"></td>
+        <td th:text="${order.destinationDate}"></td>
+        <td th:value="${order.transportId}" ><a th:href="@{'/transport/get/{id}'(id=${transport.id})}" th:text="${transport.brand} + ' ' + ${transport.model} +' '
+                +[+ ${transport.number}+] + ' ' + ${transport.bodyType}"></a></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

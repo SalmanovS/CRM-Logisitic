@@ -23,7 +23,7 @@
   <div id="today-table" class="table-div">
     <table class="main-table">
       <tr>
-        <thead>
+
         <th>№</th>
         <th>Order number</th>
         <th>Cargo name</th>
@@ -31,17 +31,17 @@
         <th>Destination address</th>
         <th>Status</th>
         <th></th>
-        </thead>
+
       </tr>
       <tbody>
         <tr th:each="order, state: ${todayOrders}">
           <td th:text="${state.index +1}"></td>
-          <td th:text="${order.orderNumber}"></td>
+          <td> <a th:href="@{'/order/info/{id}'(id=${order.id})}"th:text="${order.orderNumber}"></a></td>
           <td th:text="${order.cargoName}"></td>
           <td th:text="${order.departureAddress}"></td>
           <td th:text="${order.destinationAddress}"></td>
-          <td th:text="${order.status}"></td>
-          <td><button th:onclick="'changeStatus('+${order.id}+', \''+In+Progress+'\')'">Transfer to work</button></td>
+          <td><i th:text="${order.status}"></i></td>
+          <td><button th:onclick="'changeStatus('+${order.id}+', \''+In+' '+progress+'\')'">Transfer to work</button></td>
 
         </tr>
       </tbody>
@@ -50,7 +50,7 @@
   <div id="tomorrow-table" class="table-div">
     <table class="main-table">
       <tr>
-        <thead>
+
         <th>№</th>
         <th>Order number</th>
         <th>Cargo name</th>
@@ -58,16 +58,16 @@
         <th>Destination address</th>
         <th>Status</th>
         <th></th>
-        </thead>
+
       </tr>
       <tbody>
       <tr th:each="order, state: ${tomorrowOrders}">
         <td th:text="${state.index +1}"></td>
-        <td th:text="${order.orderNumber}"></td>
+        <td><a th:href="@{'/order/info/{id}'(id=${order.id})}"th:text="${order.orderNumber}"></a></td>
         <td th:text="${order.cargoName}"></td>
         <td th:text="${order.departureAddress}"></td>
         <td th:text="${order.destinationAddress}"></td>
-        <td th:text="${order.status}"></td>
+        <td><i th:text="${order.status}"></i></td>
 
       </tr>
       </tbody>
@@ -76,7 +76,37 @@
   <div id="otherDays-table" class="table-div">
     <table class="main-table">
       <tr>
-        <thead>
+        <th>№</th>
+        <th>Order number</th>
+        <th>Cargo name</th>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Departure Data</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      <tr th:each="order, state: ${otherDaysOrders}">
+        <td th:text="${state.index +1}"></td>
+        <td><a th:href="@{'/order/info/{id}'(id=${order.id})}"th:text="${order.orderNumber}"></a></td>
+        <td th:text="${order.cargoName}"></td>
+        <td th:text="${order.departureAddress}"></td>
+        <td th:text="${order.destinationAddress}"></td>
+        <td th:text="${order.departureDate}"></td>
+        <td><i th:text="${order.status}"></i></td>
+      </tr>
+    </table>
+  </div>
+  <!----------------- second table ----------------->
+  <hr>
+  <div class="button-div">
+    <div class="block" ><button id="inProgressBtn" onclick="inProgress()">Orders in progress</button></div>
+    <div class="block"><button  id="scheduledBtn" onclick="scheduled()">Scheduled orders</button></div>
+    <div class="block"><button id="completedBtn" onclick="completed()">Completed orders</button></div>
+  </div>
+  <div id ="order-in-progress-table" class="table-div">
+    <table class="main-table">
+      <tr>
+
         <th>№</th>
         <th>Order number</th>
         <th>Cargo name</th>
@@ -84,29 +114,56 @@
         <th>Destination address</th>
         <th>Status</th>
         <th></th>
-        </thead>
+
       </tr>
       <tbody>
-      <tr th:each="order, state: ${otherDaysOrders}">
+      <tr th:each="order, state: ${orderStatusInProgress}">
         <td th:text="${state.index +1}"></td>
-        <td th:text="${order.orderNumber}"></td>
+        <td><a th:href="@{'/order/info/{id}'(id=${order.id})}"th:text="${order.orderNumber}"></a></td>
         <td th:text="${order.cargoName}"></td>
         <td th:text="${order.departureAddress}"></td>
         <td th:text="${order.destinationAddress}"></td>
-        <td th:text="${order.status}"></td>
+        <td><i th:text="${order.status}"></i></td>
 
       </tr>
       </tbody>
     </table>
   </div>
-  <!----------------- second table ----------------->
-  <hr>
-  <div class="button-div">
-    <div class="block"><button  onclick="todayBtn()">Orders in progress</button></div>
-    <div class="block"><button  onclick="tomorrowBtn()">Scheduled orders</button></div>
-    <div class="block"><button onclick="otherDaysBtn()">Completed orders</button></div>
+
+
+
+  <div id ="scheduled-table" class="table-div">
+    <table class="main-table">
+      <tr>
+        <thead>
+        <th>№</th>
+        <th>Order number</th>
+        <th>Cargo name</th>
+        <th>Departure address</th>
+        <th>Destination address</th>
+        <th>Departure date</th>
+        <th>Status</th>
+        <th></th>
+        </thead>
+      </tr>
+      <tbody>
+      <tr th:each="order, state: ${orderStatusScheduled}">
+        <td th:text="${state.index +1}"></td>
+        <td><a th:href="@{'/order/info/{id}'(id=${order.id})}"th:text="${order.orderNumber}"></a></td>
+        <td th:text="${order.cargoName}"></td>
+        <td th:text="${order.departureAddress}"></td>
+        <td th:text="${order.destinationAddress}"></td>
+        <td th:text="${order.departureDate}"></td>
+        <td><i th:text="${order.status}"></i></td>
+
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="table-div">
+
+
+
+  <div id ="completed-table" class="table-div">
     <table class="main-table">
       <tr>
         <thead>
@@ -119,17 +176,17 @@
         <th></th>
         </thead>
       </tr>
-      <tbody>
-      <tr th:each="order, state: ${orderStatusInProgress}">
+
+      <tr th:each="order, state: ${orderStatusCompleted}">
         <td th:text="${state.index +1}"></td>
-        <td th:text="${order.orderNumber}"></td>
+        <td><a th:href="@{'/order/info/{id}'(id=${order.id})}"th:text="${order.orderNumber}"></a></td>
         <td th:text="${order.cargoName}"></td>
         <td th:text="${order.departureAddress}"></td>
         <td th:text="${order.destinationAddress}"></td>
-        <td th:text="${order.status}"></td>
+        <td><i th:text="${order.status}"></i></td>
 
       </tr>
-      </tbody>
+
     </table>
   </div>
 </div>

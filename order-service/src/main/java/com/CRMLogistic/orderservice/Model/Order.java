@@ -1,10 +1,12 @@
 package com.CRMLogistic.orderservice.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity(name = "orders")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

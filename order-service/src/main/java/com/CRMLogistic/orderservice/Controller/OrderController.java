@@ -7,6 +7,7 @@ import com.CRMLogistic.orderservice.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -66,6 +67,14 @@ public class OrderController {
     public void changeOrderStatus(@PathVariable int id, @PathVariable String newStatus) {
         Order order = orderService.getOrder(id);
         orderService.changeStatus(id,newStatus);
+        //check which status has been transferred and change the status of the transport
+        if(newStatus.equals("In progress")){
+            WebClient.create().put().uri("http://localhost:8083/api/transports/changeStatus/{id}/{newStatus}",order.getTransportId()
+            ,"In work").retrieve().bodyToMono(Void.class).block();
+        }if(newStatus.equals("Completed"))
+            WebClient.create().put().uri("http://localhost:8083/api/transports/changeStatus/{id}/{newStatus}",order.getTransportId()
+                    ,"Free").retrieve().bodyToMono(Void.class).block();
+        // --------------------------------------------------
         orderProducer.sendMessage(LocalDateTime.now().format(pattern) +" ORDER STATUS "
                 + order.getOrderNumber()+ " CHANGED TO: " + newStatus);
     }

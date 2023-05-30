@@ -6,8 +6,10 @@ function changeStatus(id, status){
             type: 'get',
             cache: false,
             success: function(){
+            //reloading the table
+            $("#today-table").load(location.href+" #today-table>*","");
+            $("#order-in-progress-table").load(location.href+" #order-in-progress-table>*","");
 
-            location.reload();
             }
     });
     }
@@ -41,5 +43,39 @@ function otherDaysBtn(){
     document.getElementById("other-btn").style.borderBottom = "1px solid red";
     document.getElementById("tomorrow-btn").style.borderBottom = "1px solid #1B7FF4";
     document.getElementById("today-btn").style.borderBottom = "1px solid #1B7FF4";
+
+}
+
+// -------------------------------------------------------------------
+
+
+
+function inProgress(){
+  document.getElementById("order-in-progress-table").style.display = "block";
+  document.getElementById("inProgressBtn").style.borderBottom = "1px solid red";
+  document.getElementById("scheduled-table").style.display = "none";
+  document.getElementById("completed-table").style.display = "none";
+  document.getElementById("scheduledBtn").style.borderBottom = "1px solid #1B7FF4";
+  document.getElementById("completedBtn").style.borderBottom = "1px solid #1B7FF4";
+
+}
+
+function scheduled(){
+    document.getElementById("order-in-progress-table").style.display = "none";
+    document.getElementById("completed-table").style.display = "none";
+    document.getElementById("scheduled-table").style.display = "block";
+    document.getElementById("scheduledBtn").style.borderBottom = "1px solid red";
+    document.getElementById("inProgressBtn").style.borderBottom = "1px solid #1B7FF4";
+    document.getElementById("completedBtn").style.borderBottom = "1px solid #1B7FF4";
+
+}
+
+function completed(){
+    document.getElementById("order-in-progress-table").style.display = "none";
+    document.getElementById("scheduled-table").style.display = "none";
+    document.getElementById("completed-table").style.display = "block";
+    document.getElementById("completedBtn").style.borderBottom = "1px solid red";
+    document.getElementById("scheduledBtn").style.borderBottom = "1px solid #1B7FF4";
+    document.getElementById("inProgressBtn").style.borderBottom = "1px solid #1B7FF4";
 
 }

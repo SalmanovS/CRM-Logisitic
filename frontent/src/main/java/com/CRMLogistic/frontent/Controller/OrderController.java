@@ -2,6 +2,7 @@ package com.CRMLogistic.frontent.Controller;
 
 
 import com.CRMLogistic.frontent.Model.Order;
+import com.CRMLogistic.frontent.Model.Transport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,17 @@ public class OrderController {
         List<Order> otherDaysOrders = WebClient.create().get().uri("http://localhost:8081/api/orders/select/otherDays")
                         .retrieve().bodyToFlux(Order.class).collectList().block();
         List<Order> orderStatusInProgress = WebClient.create().get().uri("http://localhost:8081/api/orders/status/{statusOf}"
-                , "InProgress" ).retrieve().bodyToFlux(Order.class).collectList().block();
+                , "In progress" ).retrieve().bodyToFlux(Order.class).collectList().block();
+        List<Order> orderStatusScheduled = WebClient.create().get().uri("http://localhost:8081/api/orders/status/{statusOf}"
+        , "Scheduled").retrieve().bodyToFlux(Order.class).collectList().block();
+        List<Order> orderStatusCompleted = WebClient.create().get().uri("http://localhost:8081/api/orders/status/{statusOf}"
+        ,"Completed").retrieve().bodyToFlux(Order.class).collectList().block();
         model.addAttribute("todayOrders",todayOrders);
         model.addAttribute("tomorrowOrders",tomorrowOrders);
         model.addAttribute("otherDaysOrders",otherDaysOrders);
         model.addAttribute("orderStatusInProgress",orderStatusInProgress);
+        model.addAttribute("orderStatusScheduled",orderStatusScheduled);
+        model.addAttribute("orderStatusCompleted",orderStatusCompleted);
         return "order/index";
     }
 
@@ -34,5 +41,16 @@ public class OrderController {
     public void changeOrderStatus(@PathVariable int id, @PathVariable String status){
         WebClient.create().put().uri("http://localhost:8081/api/orders/status/change/{id}&{newStatus}",
                 id,status).retrieve().bodyToMono(Void.class).block();
+
+    }
+    @RequestMapping("/info/{id}")
+    public String getInfo(@PathVariable int id, Model model){
+        Order order = WebClient.create().get().uri("http://localhost:8081/api/orders/{id}",id)
+                .retrieve().bodyToMono(Order.class).block();
+        Transport transport = WebClient.create().get().uri("http://localhost:8083/api/transports/{id}"
+                ,order.getTransportId()).retrieve().bodyToMono(Transport.class).block();
+        model.addAttribute("order",order);
+        model.addAttribute("transport",transport);
+        return "order/info";
     }
 }
