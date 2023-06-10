@@ -15,6 +15,22 @@ function changeStatus(id, status){
     }
 }
 
+function destinationAddressFunc() {
+    var start = document.getElementById('departureAddress').value;
+    var end = document.getElementById('destinationAddress').value;
+    $.ajax({
+    url:'directions',
+    dataType: 'json',
+    type: 'get',
+    cache: false,
+    data: ({startLocation: start, endLocation: end}),
+    success: function(data){
+         document.getElementById('routeLength').value = data;
+
+        }
+    });
+}
+
 
 function todayBtn(){
   document.getElementById("today-table").style.display = "block";

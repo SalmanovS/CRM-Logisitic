@@ -1,13 +1,10 @@
 package com.CRMLogistic.orderservice.Model;
 
 public class Route {
-   private Leg[] legs;
 
-    public Leg[] getLegs() {
-        return legs;
-    }
+    private float distance;
 
-    public void setLegs(Leg[] legs) {
-        this.legs = legs;
+    public float getDistance() {
+        return distance;
     }
 }

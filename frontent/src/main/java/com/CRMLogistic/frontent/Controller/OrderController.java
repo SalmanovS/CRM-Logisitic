@@ -6,8 +6,10 @@ import com.CRMLogistic.frontent.Model.Transport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -52,5 +54,30 @@ public class OrderController {
         model.addAttribute("order",order);
         model.addAttribute("transport",transport);
         return "order/info";
+    }
+    @RequestMapping("/create")
+    public String create(Model model){
+        // generation order number
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String orderNumber = localDateTime.getYear() +"" + localDateTime.getMonthValue()+ ""+localDateTime.getDayOfMonth() +
+                ""+ localDateTime.getHour()+""+ localDateTime.getMinute()+""+ localDateTime.getSecond();
+        //--------------------------
+        List<Transport> transportList = WebClient.create().get().uri("http://localhost:8083/api/transports/all")
+                .retrieve().bodyToFlux(Transport.class).collectList().block();
+        model.addAttribute("orderNumber",orderNumber);
+        model.addAttribute("transportList",transportList);
+        return "order/create";
+    }
+
+    @RequestMapping("/directions")
+    @ResponseBody
+    @SuppressWarnings("ConstantConditions")
+    public int distance(@RequestParam("startLocation") String startLocation, @RequestParam("endLocation") String endLocation){
+      RestTemplate restTemplate = new RestTemplate();
+     int distance = WebClient.create().get().uri("http://localhost:8081/api/orders/directionsApi/{startLocation}/{endLocation}",
+              startLocation,endLocation).retrieve().bodyToMono(Integer.class).block();
+
+       return distance;
+
     }
 }

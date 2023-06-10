@@ -160,3 +160,76 @@ hr {
 	border-left: 0px;
 	font-family: Times New Roman ;
 }
+
+/* ------------------------------------- */
+label {
+
+    font-size: 18px;
+    color: #989898;
+    margin-right: 10px;
+
+}
+
+.orderNumber {
+    text-align: center;
+    margin-top: 20px;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 70px;
+    border-bottom: 2px solid #e88a44;
+    outline: none;
+}
+.cargoName {
+    width: 300px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid #e88a44;
+    margin-right: 20px;
+}
+
+
+.cargoWeight {
+    width: 100px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid #e88a44;
+}
+
+.routeLength {
+    width: 80px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid #e88a44;
+
+}
+
+.departureAddress {
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 300px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid #e88a44;
+}
+.departureDate{
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 180px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid #e88a44;
+}
+
+.transportId {
+    margin-top: 30px;
+    width: 300px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+    border-bottom: 2px solid #e88a44;
+}

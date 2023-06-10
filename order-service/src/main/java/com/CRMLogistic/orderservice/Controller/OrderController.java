@@ -1,7 +1,7 @@
 package com.CRMLogistic.orderservice.Controller;
 
 import com.CRMLogistic.orderservice.Model.Order;
-import com.CRMLogistic.orderservice.Model.Response;
+import com.CRMLogistic.orderservice.Model.DistanceResponse;
 import com.CRMLogistic.orderservice.Service.OrderProducer;
 import com.CRMLogistic.orderservice.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("api/")
@@ -53,15 +54,23 @@ public class OrderController {
     }
 
     @GetMapping("orders/directionsApi/{startLocation}/{endLocation}")
-    public Long directionsApi(@PathVariable String startLocation, @PathVariable String endLocation) {
-        String startAddress = startLocation.replaceAll(" ", "+");
-        String finishAddress = endLocation.replaceAll(" ", "+");
-        String key = "AIzaSyC9Txy-V6PZTtv2fQRxcYBBW0eESWP5Rfk";
-        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" +
-                startAddress + "&destination=" + finishAddress + "&key=" + key;
-        RestTemplate restTemplate = new RestTemplate();
-        Response response = restTemplate.getForObject(url, Response.class);
-        return response.getRoutes()[0].getLegs()[0].getDistance().getValue();
+    public int directionsApi(@PathVariable String startLocation, @PathVariable String endLocation) {
+        String key = "OmCQG51EuRFDlkZZvKyCn8J2OrfDlZYe";
+        String url = "https://www.mapquestapi.com/directions/v2/route?key="+key+"&from="+startLocation+"&to="+endLocation;
+        DistanceResponse distance = WebClient.create()
+                .get().
+                uri(url)
+                .retrieve()
+                .bodyToMono(DistanceResponse.class)
+                .block();
+        int convertDistance = (int) Math.ceil(distance.getRoute().getDistance() * 1.61);
+
+            return convertDistance;
+
+
+
+
+
     }
     @PutMapping("orders/status/change/{id}&{newStatus}")
     public void changeOrderStatus(@PathVariable int id, @PathVariable String newStatus) {
