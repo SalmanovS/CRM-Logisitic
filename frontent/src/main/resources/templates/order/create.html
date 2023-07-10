@@ -21,7 +21,7 @@
     <label>Cargo name</label>
     <input class="cargoName" type="text" field="*{cargoName}"  name="cargoName">
     <label>Cargo weight</label>
-    <input class="cargoWeight" type="number" field="*{weight}"  min="100" name="weight">/kg<br>
+    <input id ="cargoWeight" class="cargoWeight" type="number" field="*{weight}"  min="100" name="weight">/kg<br>
     <label>Departure address</label>
     <input id="departureAddress" class="departureAddress" type="text" field="*{departureAddress}"
             name="departureAddress">
@@ -31,11 +31,12 @@
     <label>Route length</label>
     <input id="routeLength" class="routeLength" type="text" field="*{routeLength}"  name="routeLength" readonly>km<br>
     <label>Departure date</label>
-    <input  class="departureDate" type="date"  field="*{departureDate}" name="departureDate">
+    <input  id="departureDate" class="departureDate" type="date"  field="*{departureDate}" name="departureDate"
+            onblur="destinationDateFunction()">
     <label>Destination date</label>
-    <input  class="departureDate" type="date"  field="*{destinationDate}" name="destinationDate" >
+    <input  id="destinationDate" class="departureDate" type="date"  field="*{destinationDate}" name="destinationDate" >
     <label>Order price</label>
-    <input  class="cargoWeight" type="text" field="*{orderPrice}" name="orderPrice" readonly ><br>
+    <input  id="orderPrice" class="cargoWeight" type="text" field="*{orderPrice}" name="orderPrice" readonly ><br>
     <label>Transport</label>
     <select  class="transportId" field="*{transportId}" name="transportId">
       <option selected disabled></option>
@@ -46,5 +47,6 @@
 
 </div>
 <script type="text/javascript" th:src="@{/js/order/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/order/calendar.js}"></script>
 </body>
 </html>

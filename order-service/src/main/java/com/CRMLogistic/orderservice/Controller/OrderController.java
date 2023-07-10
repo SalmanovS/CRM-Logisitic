@@ -64,7 +64,8 @@ public class OrderController {
                 .bodyToMono(DistanceResponse.class)
                 .block();
         int convertDistance = (int) Math.ceil(distance.getRoute().getDistance() * 1.61);
-
+        orderProducer.sendMessage(LocalDateTime.now().format(pattern) +" The length of the route from "+startLocation
+                + " to "+endLocation+ " = "+convertDistance);
             return convertDistance;
 
 

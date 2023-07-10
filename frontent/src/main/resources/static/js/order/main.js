@@ -16,6 +16,7 @@ function changeStatus(id, status){
 }
 
 function destinationAddressFunc() {
+    var weight = document.getElementById('cargoWeight').value;
     var start = document.getElementById('departureAddress').value;
     var end = document.getElementById('destinationAddress').value;
     $.ajax({
@@ -26,6 +27,9 @@ function destinationAddressFunc() {
     data: ({startLocation: start, endLocation: end}),
     success: function(data){
          document.getElementById('routeLength').value = data;
+         var price = weight * 2 + data * 0.2;
+          document.getElementById('orderPrice').value = price;
+
 
         }
     });
